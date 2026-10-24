@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#d1492e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Тайм-менеджер</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>⏱ Тайм-менеджер</h1>
+    <div class="header-right">
+        <div class="stats" id="stats">—</div>
+        <nav class="nav">
+            <a href="index.html" class="active">Задачи</a>
+            <a href="calendar.html">Календарь</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Левая колонка: Pomodoro + форма -->
+    <aside>
+        <section class="card pomodoro">
+            <h2>Pomodoro</h2>
+            <div class="mode" id="pomoMode">Работа</div>
+            <div class="clock" id="pomoClock">25:00</div>
+            <div class="active-task" id="activeTask">Задача не выбрана</div>
+            <div class="buttons">
+                <button id="pomoStart">Старт</button>
+                <button id="pomoReset" class="secondary">Сброс</button>
+            </div>
+            <div class="settings">
+                <label>Работа, мин <input type="number" id="workMin" value="25" min="1" max="120"></label>
+                <label>Отдых, мин <input type="number" id="breakMin" value="5" min="1" max="60"></label>
+            </div>
+            <div class="rounds">Помидоров сегодня: <b id="rounds">0</b></div>
+        </section>
+
+        <section class="card">
+            <h2 id="formTitle">Новая задача</h2>
+            <form id="taskForm">
+                <input type="hidden" id="taskId">
+                <input id="title" placeholder="Что нужно сделать?" required maxlength="200">
+                <textarea id="description" placeholder="Описание (необязательно)" rows="3" maxlength="1000"></textarea>
+                <div class="row">
+                    <select id="priority">
+                        <option value="LOW">Низкий</option>
+                        <option value="MEDIUM" selected>Средний</option>
+                        <option value="HIGH">Высокий</option>
+                    </select>
+                    <input type="date" id="deadline">
+                </div>
+                <div class="buttons">
+                    <button type="submit" id="saveBtn">Добавить</button>
+                    <button type="button" id="cancelEdit" class="secondary hidden">Отмена</button>
+                </div>
+            </form>
+        </section>
+    </aside>
+
+    <!-- Правая колонка: список задач -->
+    <section class="tasks">
+        <div class="filters">
+            <button class="filter active" data-filter="ALL">Все</button>
+            <button class="filter" data-filter="TODO">К выполнению</button>
+            <button class="filter" data-filter="IN_PROGRESS">В работе</button>
+            <button class="filter" data-filter="DONE">Готово</button>
+            <select id="sort">
+                <option value="priority">По приоритету</option>
+                <option value="deadline">По дедлайну</option>
+                <option value="created">По дате создания</option>
+            </select>
+        </div>
+        <ul id="taskList"></ul>
+        <p id="empty" class="empty hidden">Задач пока нет — добавь первую слева.</p>
+    </section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

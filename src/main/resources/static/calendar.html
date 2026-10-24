@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#1a73e8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Календарь</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="calendar.css">
+</head>
+<body class="calendar-page">
+<header>
+    <h1>📅 Календарь</h1>
+    <nav class="nav">
+        <a href="index.html">Задачи</a>
+        <a href="calendar.html" class="active">Календарь</a>
+    </nav>
+</header>
+
+<div class="cal-layout">
+    <aside class="cal-side">
+        <button id="createBtn" class="create-btn"><span>＋</span> Создать</button>
+        <label class="check"><input type="checkbox" id="showTasks" checked> Дедлайны задач</label>
+        <div class="legend">
+            <div><i style="background:#039be5"></i> События</div>
+            <div><i style="background:#8e24aa"></i> Дедлайны задач</div>
+        </div>
+        <p class="hint">Подсказка: выдели время мышкой (или зажми палец на телефоне), чтобы создать событие. События можно перетаскивать и растягивать.</p>
+    </aside>
+
+    <section class="cal-main">
+        <div id="calendar"></div>
+    </section>
+</div>
+
+<!-- Кнопка «+» для телефона -->
+<button id="fab" class="fab" aria-label="Создать событие">＋</button>
+
+<!-- Окно создания / редактирования события -->
+<dialog id="eventDialog">
+    <form id="eventForm" method="dialog">
+        <div class="dlg-head">
+            <h2 id="dlgTitle">Новое событие</h2>
+            <button type="button" class="icon-btn" id="dlgClose" aria-label="Закрыть">✕</button>
+        </div>
+
+        <input id="evTitle" placeholder="Добавьте название" required maxlength="200" class="title-input">
+
+        <label class="check"><input type="checkbox" id="evAllDay"> Весь день</label>
+
+        <div class="dt-row">
+            <span class="dt-label">Начало</span>
+            <input type="date" id="evStartDate" required>
+            <input type="time" id="evStartTime" class="time">
+        </div>
+        <div class="dt-row">
+            <span class="dt-label">Конец</span>
+            <input type="date" id="evEndDate" required>
+            <input type="time" id="evEndTime" class="time">
+        </div>
+
+        <div class="colors" id="colors"></div>
+
+        <textarea id="evDesc" rows="3" maxlength="1000" placeholder="Описание"></textarea>
+
+        <div class="dlg-actions">
+            <button type="button" id="evDelete" class="danger hidden">Удалить</button>
+            <span class="spacer"></span>
+            <button type="button" id="evCancel" class="secondary">Отмена</button>
+            <button type="submit" id="evSave">Сохранить</button>
+        </div>
+    </form>
+</dialog>
+
+<div id="toast" class="toast"></div>
+
+<script src="lib/fullcalendar/fullcalendar.min.js"></script>
+<script src="lib/fullcalendar/ru.min.js"></script>
+<script src="calendar.js"></script>
+</body>
+</html>
